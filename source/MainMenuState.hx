@@ -25,7 +25,7 @@ using StringTools;
 
 class MainMenuState extends MusicBeatState
 {
-	public static var psychEngineVersion:String = '0.4.2'; //This is also used for Discord RPC
+	public static var psychEngineVersion:String = '0.5.2h'; //This is also used for Discord RPC
 	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
@@ -35,7 +35,7 @@ class MainMenuState extends MusicBeatState
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
-		#if MODS_ALLOWED /*'mods',*/ #end
+		#if MODS_ALLOWED 'mods', #end
 		#if ACHIEVEMENTS_ALLOWED 'awards', #end
 		'credits',
 		#if !switch 'donate', #end
@@ -49,12 +49,13 @@ class MainMenuState extends MusicBeatState
 
 	override function create()
 	{
+		WeekData.loadTheFirstEnabledMod();
+
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
 		#end
-
-		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_2'));
+		debugKeys = ClientPrefs.copyKey(ClientPrefs.keyBinds.get('debug_1'));
 
 		camGame = new FlxCamera();
 		camAchievement = new FlxCamera();
@@ -92,6 +93,7 @@ class MainMenuState extends MusicBeatState
 		magenta.antialiasing = ClientPrefs.globalAntialiasing;
 		magenta.color = 0xFFfd719b;
 		add(magenta);
+		
 		// magenta.scrollFactor.set();
 
 		menuItems = new FlxTypedGroup<FlxSprite>();
@@ -172,7 +174,7 @@ class MainMenuState extends MusicBeatState
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
 
-		var lerpVal:Float = CoolUtil.boundTo(elapsed * 5.6, 0, 1);
+		var lerpVal:Float = CoolUtil.boundTo(elapsed * 7.5, 0, 1);
 		camFollowPos.setPosition(FlxMath.lerp(camFollowPos.x, camFollow.x, lerpVal), FlxMath.lerp(camFollowPos.y, camFollow.y, lerpVal));
 
 		if (!selectedSomethin)
@@ -233,14 +235,16 @@ class MainMenuState extends MusicBeatState
 										MusicBeatState.switchState(new StoryMenuState());
 									case 'freeplay':
 										MusicBeatState.switchState(new FreeplayState());
+									#if MODS_ALLOWED
 									case 'mods':
 										MusicBeatState.switchState(new ModsMenuState());
+									#end
 									case 'awards':
 										MusicBeatState.switchState(new AchievementsMenuState());
 									case 'credits':
 										MusicBeatState.switchState(new CreditsState());
 									case 'options':
-										MusicBeatState.switchState(new options.OptionsState());
+										LoadingState.loadAndSwitchState(new options.OptionsState());
 								}
 							});
 						}
