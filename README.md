@@ -2,28 +2,34 @@
 Engine originally used on [Mind Games Mod](https://gamebanana.com/mods/301107), intended to be a fix for the vanilla version's many issues while keeping the casual play aspect of it. Also aiming to be an easier alternative to newbie coders.
 
 ## Installation:
-You must have [the most up-to-date version of Haxe](https://haxe.org/download/), seriously, stop using 4.1.5, it misses some stuff.
 
-Follow a Friday Night Funkin' source code compilation tutorial, after this you will need to install LuaJIT.
+Refer to [the Build Instructions](./BUILDING.md)
 
-To install LuaJIT do this: `haxelib git linc_luajit https://github.com/AndreiRudenko/linc_luajit ` on a Command prompt/PowerShell
+## Customization:
 
-...Or if you don't want your mod to be able to run .lua scripts, delete the "LUA_ALLOWED" line on Project.xml
+if you wish to disable things like *Lua Scripts* or *Video Cutscenes*, you can read over to `Project.xml`
+
+inside `Project.xml`, you will find several variables to customize Psych Engine to your liking
+
+to start you off, disabling Videos should be simple, simply Delete the line `"VIDEOS_ALLOWED"` or comment it out by wrapping the line in XML-like comments, like this `<!-- YOUR_LINE_HERE -->`
+
+same goes for *Lua Scripts*, comment out or delete the line with `LUA_ALLOWED`, this and other customization options are all available within the `Project.xml` file
 
 ## Credits:
-* Shadow Mario - Coding
-* RiverOaken - Arts and Animations
-* bbpanzu - Assistant Coding
+* Shadow Mario - Programmer
+* Riveren - Artist
 
 ### Special Thanks
-* shubs - New Input System
-* SqirraRNG - Chart Editor's Sound Waveform base code
-* iFlicky - Delay/Combo Menu Song Composer + Dialogue Sounds
-* PolybiusProxy - .MP4 Loader Extension
+* bbpanzu - Ex-Programmer
+* Yoshubs - Ex-Programmer
+* SqirraRNG - Crash Handler and Base code for Chart Editor's Waveform
+* KadeDev - Fixed some cool stuff on Chart Editor and other PRs
+* iFlicky - Composer of Psync and Tea Time, also made the Dialogue Sounds
+* PolybiusProxy - .MP4 Video Loader Library (hxCodec)
 * Keoiki - Note Splash Animations
-* Smokey - Spritemap Texture Atlas support
-* Cary - OG Resolution code
-* Nebula_Zorua - VCR Shader code
+* Smokey - Sprite Atlas Support
+* Nebula the Zorua - some Lua reworks
+* superpowers04 - LUA JIT Fork
 _____________________________________
 
 # Features
@@ -35,13 +41,14 @@ _____________________________________
 
 ## Mod Support
 * Probably one of the main points of this engine, you can code in .lua files outside of the source code, making your own weeks without even messing with the source!
-* Comes with a Mod Organizing/Disabling Menu. 
+* Comes with a Mod Organizing/Disabling Menu.
 
 
 ## Atleast one change to every week:
 ### Week 1:
-  * New Dad Left sing sprite 
+  * New Dad Left sing sprite
   * Unused stage lights are now used
+  * Dad Battle has a spotlight effect for the breakdown
 ### Week 2:
   * Both BF and Skid & Pump does "Hey!" animations
   * Thunders does a quick light flash and zooms the camera in slightly
@@ -64,9 +71,12 @@ _____________________________________
 * You can now chart "Event" notes, which are bookmarks that trigger specific actions that usually were hardcoded on the vanilla version of the game.
 * Your song's BPM can now have decimal values
 * You can manually adjust a Note's strum time if you're really going for milisecond precision
-* You can change a note's type on the Editor, it comes with two example types:
+* You can change a note's type on the Editor, it comes with five example types:
   * Alt Animation: Forces an alt animation to play, useful for songs like Ugh/Stress
   * Hey: Forces a "Hey" animation instead of the base Sing animation, if Boyfriend hits this note, Girlfriend will do a "Hey!" too.
+  * Hurt Notes: If Boyfriend hits this note, he plays a miss animation and loses some health.
+  * GF Sing: Rather than the character hitting the note and singing, Girlfriend sings instead.
+  * No Animation: Character just hits the note, no animation plays.
 
 ## Multiple editors to assist you in making your own Mod
 ![Screenshot_3](https://user-images.githubusercontent.com/44785097/144629914-1fe55999-2f18-4cc1-bc70-afe616d74ae5.png)
@@ -94,3 +104,4 @@ _____________________________________
 * Some stuff based on Week 7's changes has been put in (Background colors on Freeplay, Note splashes)
 * You can reset your Score on Freeplay/Story Mode by pressing Reset button.
 * You can listen to a song or adjust Scroll Speed/Damage taken/etc. on Freeplay by pressing Space.
+* You can enable "Combo Stacking" in Gameplay Options. This causes the combo sprites to just be one sprite with an animation rather than sprites spawning each note hit.
