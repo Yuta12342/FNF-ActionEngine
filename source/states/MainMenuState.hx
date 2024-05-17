@@ -126,10 +126,10 @@ class MainMenuState extends MusicBeatState
 
 		if (!selectedSomethin)
 		{
-			if (controls.UI_UP_P)
+			if (controls.UI_UP)
 				changeItem(-1);
 
-			if (controls.UI_DOWN_P)
+			if (controls.UI_DOWN)
 				changeItem(1);
 
 			if (controls.BACK)
