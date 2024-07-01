@@ -108,25 +108,18 @@ class Option
 
 	dynamic public function getValue():Dynamic
 	{
-		var controls:Controls = new Controls("Player 1");
-
 		var value = Reflect.getProperty(ClientPrefs.data, variable);
-		if (type == 'keybind')
-			return !controls.controllerMode ? value.keyboard : value.gamepad;
+		if(type == 'keybind') return !Controls.instance.controllerMode ? value.keyboard : value.gamepad;
 		return value;
 	}
 
 	dynamic public function setValue(value:Dynamic)
 	{
-		var controls:Controls = new Controls("Player 1");
-
-		if (type == 'keybind')
+		if(type == 'keybind')
 		{
 			var keys = Reflect.getProperty(ClientPrefs.data, variable);
-			if (!controls.controllerMode)
-				keys.keyboard = value;
-			else
-				keys.gamepad = value;
+			if(!Controls.instance.controllerMode) keys.keyboard = value;
+			else keys.gamepad = value;
 			return value;
 		}
 		return Reflect.setProperty(ClientPrefs.data, variable, value);

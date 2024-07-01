@@ -156,9 +156,9 @@ class AchievementsMenuState extends MusicBeatState
 		if (!goingBack && options.length > 1)
 		{
 			var add:Int = 0;
-			if (PlayerSettings.player1.controls.UI_LEFT)
+			if (Controls.instance.UI_LEFT)
 				add = -1;
-			else if (PlayerSettings.player1.controls.UI_RIGHT)
+			else if (Controls.instance.UI_RIGHT)
 				add = 1;
 
 			if (add != 0)
@@ -184,9 +184,9 @@ class AchievementsMenuState extends MusicBeatState
 			if (options.length > MAX_PER_ROW)
 			{
 				var add:Int = 0;
-				if (PlayerSettings.player1.controls.UI_UP)
+				if (Controls.instance.UI_UP)
 					add = -1;
-				else if (PlayerSettings.player1.controls.UI_DOWN)
+				else if (Controls.instance.UI_DOWN)
 					add = 1;
 
 				if (add != 0)
@@ -328,7 +328,7 @@ class ResetAchievementSubstate extends MusicBeatSubstate
 
 		super.update(elapsed);
 
-		if (PlayerSettings.player1.controls.UI_LEFT || PlayerSettings.player1.controls.UI_RIGHT)
+		if (Controls.instance.UI_LEFT || Controls.instance.UI_RIGHT)
 		{
 			onYes = !onYes;
 			updateOptions();

@@ -211,63 +211,38 @@ class HScript extends SScript
 			return Reflect.getProperty(controller.justReleased, name) == true;
 		});
 
-		set('keyJustPressed', function(name:String = '')
-		{
-			var controls:Controls = new Controls("Player 1");
-
+		set('keyJustPressed', function(name:String = '') {
 			name = name.toLowerCase();
-			switch (name)
-			{
-				case 'left':
-					return PlayState.instance.controls.NOTE_LEFT;
-				case 'down':
-					return PlayState.instance.controls.NOTE_DOWN;
-				case 'up':
-					return PlayState.instance.controls.NOTE_UP;
-				case 'right':
-					return PlayState.instance.controls.NOTE_RIGHT;
-				default:
-					return controls.justPressed(name);
+			switch(name) {
+				case 'left': return Controls.instance.NOTE_LEFT_P;
+				case 'down': return Controls.instance.NOTE_DOWN_P;
+				case 'up': return Controls.instance.NOTE_UP_P;
+				case 'right': return Controls.instance.NOTE_RIGHT_P;
+				default: return Controls.instance.justPressed(name);
 			}
 			return false;
 		});
-		set('keyPressed', function(name:String = '')
-		{
-			var controls:Controls = new Controls("Player 1");
 
+		set('keyPressed', function(name:String = '') {
 			name = name.toLowerCase();
-			switch (name)
-			{
-				case 'left':
-					return PlayState.instance.controls.NOTE_LEFT;
-				case 'down':
-					return PlayState.instance.controls.NOTE_DOWN;
-				case 'up':
-					return PlayState.instance.controls.NOTE_UP;
-				case 'right':
-					return PlayState.instance.controls.NOTE_RIGHT;
-				default:
-					return controls.justPressed(name);
+			switch(name) {
+				case 'left': return Controls.instance.NOTE_LEFT;
+				case 'down': return Controls.instance.NOTE_DOWN;
+				case 'up': return Controls.instance.NOTE_UP;
+				case 'right': return Controls.instance.NOTE_RIGHT;
+				default: return Controls.instance.pressed(name);
 			}
 			return false;
 		});
-		set('keyReleased', function(name:String = '')
-		{
-			var controls:Controls = new Controls("Player 1");
-
+		
+		set('keyReleased', function(name:String = '') {
 			name = name.toLowerCase();
-			switch (name)
-			{
-				case 'left':
-					return PlayState.instance.controls.NOTE_LEFT;
-				case 'down':
-					return PlayState.instance.controls.NOTE_DOWN;
-				case 'up':
-					return PlayState.instance.controls.NOTE_UP;
-				case 'right':
-					return PlayState.instance.controls.NOTE_RIGHT;
-				default:
-					return controls.justPressed(name);
+			switch(name) {
+				case 'left': return Controls.instance.NOTE_LEFT_R;
+				case 'down': return Controls.instance.NOTE_DOWN_R;
+				case 'up': return Controls.instance.NOTE_UP_R;
+				case 'right': return Controls.instance.NOTE_RIGHT_R;
+				default: return Controls.instance.justReleased(name);
 			}
 			return false;
 		});
@@ -367,7 +342,7 @@ class HScript extends SScript
 		}
 	}
 
-	public function executeCode(?funcToRun:String = null, ?funcArgs:Array<Dynamic> = null):Tea
+	public function executeCode(?funcToRun:String = null, ?funcArgs:Array<Dynamic> = null):TeaCall
 	{
 		if (funcToRun == null)
 			return null;
@@ -403,7 +378,7 @@ class HScript extends SScript
 		return callValue;
 	}
 
-	public function executeFunction(funcToRun:String = null, funcArgs:Array<Dynamic>):Tea
+	public function executeFunction(funcToRun:String = null, funcArgs:Array<Dynamic>):TeaCall
 	{
 		if (funcToRun == null)
 			return null;
@@ -418,7 +393,7 @@ class HScript extends SScript
 			{
 				#if SScript
 				initHaxeModuleCode(funk, codeToRun, varsToBring);
-				final retVal:Tea = funk.hscript.executeCode(funcToRun, funcArgs);
+				final retVal:TeaCall = funk.hscript.executeCode(funcToRun, funcArgs);
 				if (retVal != null)
 				{
 					if (retVal.succeeded)

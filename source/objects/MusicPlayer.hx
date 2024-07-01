@@ -95,7 +95,7 @@ class MusicPlayer extends FlxGroup
 
 		positionSong();
 
-		if (PlayerSettings.player1.controls.UI_LEFT)
+		if (Controls.instance.UI_LEFT)
 		{
 			if (playing)
 				wasPlaying = true;
@@ -112,7 +112,7 @@ class MusicPlayer extends FlxGroup
 			if (FreeplayState.vocals != null)
 				FreeplayState.vocals.time = curTime;
 		}
-		if (PlayerSettings.player1.controls.UI_RIGHT)
+		if (Controls.instance.UI_RIGHT)
 		{
 			if (playing)
 				wasPlaying = true;
@@ -167,13 +167,13 @@ class MusicPlayer extends FlxGroup
 
 			updateTimeTxt();
 		}
-		if (PlayerSettings.player1.controls.UI_UP)
+		if (Controls.instance.UI_UP)
 		{
 			holdPitchTime = 0;
 			playbackRate += 0.05;
 			setPlaybackRate();
 		}
-		else if (PlayerSettings.player1.controls.UI_DOWN)
+		else if (Controls.instance.UI_DOWN)
 		{
 			holdPitchTime = 0;
 			playbackRate -= 0.05;

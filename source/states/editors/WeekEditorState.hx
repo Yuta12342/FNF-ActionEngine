@@ -879,9 +879,9 @@ class WeekEditorFreeplayState extends MusicBeatState
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
 
-			if (PlayerSettings.player1.controls.UI_UP)
+			if (Controls.instance.UI_UP)
 				changeSelection(-1);
-			if (PlayerSettings.player1.controls.UI_DOWN)
+			if (Controls.instance.UI_DOWN)
 				changeSelection(1);
 		}
 		super.update(elapsed);

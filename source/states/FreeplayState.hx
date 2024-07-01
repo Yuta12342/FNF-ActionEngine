@@ -251,12 +251,12 @@ class FreeplayState extends MusicBeatState
 					changeSelection();
 					holdTime = 0;
 				}
-				if (PlayerSettings.player1.controls.UI_UP)
+				if (Controls.instance.UI_UP)
 				{
 					changeSelection(-shiftMult);
 					holdTime = 0;
 				}
-				if (PlayerSettings.player1.controls.UI_DOWN)
+				if (Controls.instance.UI_DOWN)
 				{
 					changeSelection(shiftMult);
 					holdTime = 0;
@@ -279,12 +279,12 @@ class FreeplayState extends MusicBeatState
 				}
 			}
 
-			if (PlayerSettings.player1.controls.UI_LEFT)
+			if (Controls.instance.UI_LEFT)
 			{
 				changeDiff(-1);
 				_updateSongLastDifficulty();
 			}
-			else if (PlayerSettings.player1.controls.UI_RIGHT)
+			else if (Controls.instance.UI_RIGHT)
 			{
 				changeDiff(1);
 				_updateSongLastDifficulty();

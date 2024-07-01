@@ -310,13 +310,13 @@ class NotesSubState extends MusicBeatSubstate
 			var add:Int = 0;
 			if (analogX == 0 && !changedToController)
 			{
-				if (PlayerSettings.player1.controls.UI_LEFT)
+				if (Controls.instance.UI_LEFT)
 					add = -1;
-				else if (PlayerSettings.player1.controls.UI_RIGHT)
+				else if (Controls.instance.UI_RIGHT)
 					add = 1;
 			}
 
-			if (analogY == 0 && !changedToController && (PlayerSettings.player1.controls.UI_UP || PlayerSettings.player1.controls.UI_DOWN))
+			if (analogY == 0 && !changedToController && (Controls.instance.UI_UP || Controls.instance.UI_DOWN))
 			{
 				onModeColumn = !onModeColumn;
 				modeBG.visible = onModeColumn;

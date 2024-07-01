@@ -265,8 +265,8 @@ class CreditsState extends MusicBeatState
 				if (FlxG.keys.pressed.SHIFT)
 					shiftMult = 3;
 
-				var upP = PlayerSettings.player1.controls.UI_UP;
-				var downP = PlayerSettings.player1.controls.UI_DOWN;
+				var upP = Controls.instance.UI_UP;
+				var downP = Controls.instance.UI_DOWN;
 
 				if (upP)
 				{

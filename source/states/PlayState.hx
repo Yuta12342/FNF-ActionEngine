@@ -252,7 +252,7 @@ class PlayState extends MusicBeatState
 	#end
 
 	// Achievement shit
-	var keysPressed:Array<Int> = [];
+	var keysPressed:Array<Bool> = [];
 	var boyfriendIdleTime:Float = 0.0;
 	var boyfriendIdled:Bool = false;
 
@@ -268,7 +268,7 @@ class PlayState extends MusicBeatState
 	public var introSoundsSuffix:String = '';
 
 	// Less laggy controls
-	private var keysArray:Array<String>;
+	private var keysArray:Array<Dynamic>;
 
 	public var songName:String;
 
@@ -290,10 +290,16 @@ class PlayState extends MusicBeatState
 		PauseSubState.songName = null; // Reset to default
 		playbackRate = ClientPrefs.getGameplaySetting('songspeed');
 
-		keysArray = ['note_left', 'note_down', 'note_up', 'note_right'];
+		keysArray = backend.Keybinds.fill();
 
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
+
+		// For the "Just the Two of Us" achievement
+		for (i in 0...keysArray[mania].length)
+		{
+			keysPressed.push(false);
+		}
 
 		// Gameplay settings
 		healthGain = ClientPrefs.getGameplaySetting('healthgain');
@@ -2842,7 +2848,7 @@ class PlayState extends MusicBeatState
 	private function onKeyPress(event:KeyboardEvent):Void
 	{
 		var eventKey:FlxKey = event.keyCode;
-		var key:Int = getKeyFromEvent(keysArray, eventKey);
+		var key:Int = getKeyFromEvent(eventKey);
 
 		if (!controls.controllerMode)
 		{
@@ -2911,8 +2917,7 @@ class PlayState extends MusicBeatState
 
 		// Needed for the  "Just the Two of Us" achievement.
 		//									- Shadow Mario
-		if (!keysPressed.contains(key))
-			keysPressed.push(key);
+		keysPressed[key] = true;
 
 		// more accurate hit time for the ratings? part 2 (Now that the calculations are done, go back to the time it was before for not causing a note stutter)
 		Conductor.songPosition = lastTime;
@@ -2939,7 +2944,7 @@ class PlayState extends MusicBeatState
 	private function onKeyRelease(event:KeyboardEvent):Void
 	{
 		var eventKey:FlxKey = event.keyCode;
-		var key:Int = getKeyFromEvent(keysArray, eventKey);
+		var key:Int = getKeyFromEvent(eventKey);
 		if (!controls.controllerMode && key > -1)
 			keyReleased(key);
 	}
@@ -2962,17 +2967,20 @@ class PlayState extends MusicBeatState
 		callOnScripts('onKeyRelease', [key]);
 	}
 
-	public static function getKeyFromEvent(arr:Array<String>, key:FlxKey):Int
+	private function getKeyFromEvent(key:FlxKey):Int
 	{
-		var controls:Controls = new Controls("Player1");
+		//var tempKeys:Array<Dynamic> = backend.Keybinds.fill();
 		if (key != NONE)
 		{
-			for (i in 0...arr.length)
+			for (i in 0...keysArray[mania].length)
 			{
-				var note:Array<FlxKey> = controls.keyboardBinds[arr[i]];
-				for (noteKey in note)
-					if (key == noteKey)
+				for (j in 0...keysArray[mania][i].length)
+				{
+					if (key == keysArray[mania][i][j])
+					{
 						return i;
+					}
+				}
 			}
 		}
 		return -1;

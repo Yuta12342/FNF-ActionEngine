@@ -135,11 +135,11 @@ class BaseOptionsMenu extends MusicBeatSubstate
 			return;
 		}
 
-		if (PlayerSettings.player1.controls.UI_UP)
+		if (Controls.instance.UI_UP)
 		{
 			changeSelection(-1);
 		}
-		if (PlayerSettings.player1.controls.UI_DOWN)
+		if (Controls.instance.UI_DOWN)
 		{
 			changeSelection(1);
 		}
@@ -191,7 +191,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				}
 				else if (controls.UI_LEFT || controls.UI_RIGHT)
 				{
-					var pressed = (PlayerSettings.player1.controls.UI_LEFT || PlayerSettings.player1.controls.UI_RIGHT);
+					var pressed = (Controls.instance.UI_LEFT || Controls.instance.UI_RIGHT);
 					if (holdTime > 0.5 || pressed)
 					{
 						if (pressed)
@@ -222,7 +222,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 								case 'string':
 									var num:Int = curOption.curOption; // lol
-									if (PlayerSettings.player1.controls.UI_LEFT)
+									if (Controls.instance.UI_LEFT)
 										--num;
 									else
 										num++;
@@ -272,24 +272,21 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				}
 			}
 
-			if (controls.RESET)
+			if(controls.RESET)
 			{
 				var leOption:Option = optionsArray[curSelected];
-				if (leOption.type != 'keybind')
+				if(leOption.type != 'keybind')
 				{
 					leOption.setValue(leOption.defaultValue);
-					if (leOption.type != 'bool')
+					if(leOption.type != 'bool')
 					{
-						if (leOption.type == 'string')
-							leOption.curOption = leOption.options.indexOf(leOption.getValue());
+						if(leOption.type == 'string') leOption.curOption = leOption.options.indexOf(leOption.getValue());
 						updateTextFrom(leOption);
 					}
 				}
 				else
 				{
-					var controls:Controls = new Controls("Player1");
-
-					leOption.setValue(!controls.controllerMode ? leOption.defaultKeys.keyboard : leOption.defaultKeys.gamepad);
+					leOption.setValue(!Controls.instance.controllerMode ? leOption.defaultKeys.keyboard : leOption.defaultKeys.gamepad);
 					updateBind(leOption);
 				}
 				leOption.change();

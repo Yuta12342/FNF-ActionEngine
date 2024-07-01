@@ -90,11 +90,11 @@ class OptionsState extends MusicBeatState
 	{
 		super.update(elapsed);
 
-		if (PlayerSettings.player1.controls.UI_UP)
+		if (Controls.instance.UI_UP)
 		{
 			changeSelection(-1);
 		}
-		if (PlayerSettings.player1.controls.UI_DOWN)
+		if (Controls.instance.UI_DOWN)
 		{
 			changeSelection(1);
 		}

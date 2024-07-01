@@ -364,12 +364,13 @@ class NoteOffsetState extends MusicBeatState
 		}
 		else
 		{
-			if (PlayerSettings.player1.controls.UI_LEFT)
+			if (Controls.instance.UI_LEFT)
 			{
 				barPercent = Math.max(delayMin, Math.min(ClientPrefs.data.noteOffset - 1, delayMax));
 				updateNoteDelay();
 			}
-			else if (PlayerSettings.player1.controls.UI_RIGHT)
+			else if (Controls.instance
+				.UI_RIGHT)
 			{
 				barPercent = Math.max(delayMin, Math.min(ClientPrefs.data.noteOffset + 1, delayMax));
 				updateNoteDelay();

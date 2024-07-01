@@ -61,25 +61,17 @@ class ModSettingsSubState extends BaseOptionsMenu
 
 						@:privateAccess
 						{
-							newOption.getValue = function()
-							{
-								var controls:Controls = new Controls("Player1");
-
+							newOption.getValue = function() {
 								var data = save.get(newOption.variable);
-								if (data == null)
-									return 'NONE';
-								return !controls.controllerMode ? data.keyboard : data.gamepad;
+								if(data == null) return 'NONE';
+								return !Controls.instance.controllerMode ? data.keyboard : data.gamepad;
 							};
-							newOption.setValue = function(value:Dynamic)
-							{
+							newOption.setValue = function(value:Dynamic) {
 								var data = save.get(newOption.variable);
-								if (data == null)
-									data = {keyboard: 'NONE', gamepad: 'NONE'};
+								if(data == null) data = {keyboard: 'NONE', gamepad: 'NONE'};
 
-								if (!controls.controllerMode)
-									data.keyboard = value;
-								else
-									data.gamepad = value;
+								if(!controls.controllerMode) data.keyboard = value;
+								else data.gamepad = value;
 								save.set(newOption.variable, data);
 							};
 						}
@@ -112,21 +104,16 @@ class ModSettingsSubState extends BaseOptionsMenu
 						newOption.decimals = option.decimals;
 
 					var myValue:Dynamic = null;
-					if (save.get(option.save) != null)
+					if(save.get(option.save) != null)
 					{
-						var controls:Controls = new Controls("Player1");
-
 						myValue = save.get(option.save);
-						if (newOption.type != 'keybind')
-							newOption.setValue(myValue);
-						else
-							newOption.setValue(!controls.controllerMode ? myValue.keyboard : myValue.gamepad);
+						if(newOption.type != 'keybind') newOption.setValue(myValue);
+						else newOption.setValue(!Controls.instance.controllerMode ? myValue.keyboard : myValue.gamepad);
 					}
 					else
 					{
 						myValue = newOption.getValue();
-						if (myValue == null)
-							myValue = newOption.defaultValue;
+						if(myValue == null) myValue = newOption.defaultValue;
 					}
 
 					switch (newOption.type)

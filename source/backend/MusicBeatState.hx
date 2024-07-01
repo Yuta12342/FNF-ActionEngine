@@ -20,7 +20,7 @@ class MusicBeatState extends FlxUIState
 
 	private function get_controls()
 	{
-		return PlayerSettings.player1.controls;
+		return Controls.instance;
 	}
 
 	var _psychCameraInitialized:Bool = false;
